@@ -20,6 +20,7 @@
 
 ## Bonus Features
 
+- User authentication with register/login pages.
 - A backend that stores all the employees' overtime entries
 - An admin dashboard that allows the employer to view each employee's overtime entries. 
   They should also be able to send the form back to employee for correction if needed (see Workflow #3).
