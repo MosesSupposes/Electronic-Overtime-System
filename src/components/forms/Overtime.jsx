@@ -40,7 +40,7 @@ export default function OvertimeForm(props) {
             dateOfAppointment: formatDate,
             dateOvertimeOccured: formatDate,
             regularWorkdayStartTime: determineStartTime(startTimeRef),
-            signature: getSigDataURL
+            signature: getSigDataURL(sigRef)
         })
         console.log(formState)
     }
@@ -82,11 +82,6 @@ export default function OvertimeForm(props) {
 
     const startTimeRef = React.useRef()
     const sigRef = React.useRef()
-
-    const getSigDataURL = () => {
-        setFormState({...formState, signature: sigRef.current.getTrimmedCanvas().toDataURL()})
-        return sigRef.current.getTrimmedCanvas().toDataURL()
-    }
 
     return (
         <FlexContainer>
@@ -285,14 +280,23 @@ export default function OvertimeForm(props) {
  * Helpers
  */
 
- function determineStartTime(ref) {
+function formatDate(date) {
+    const [year, month, day] = date.split('-')
+    const formattedDate = [month, day, year].join('-')
+    return formattedDate
+}
+ 
+function determineStartTime(ref) {
     return function(startTime) {
         return startTime ? startTime : ref.current.value
     }
  }
 
-function formatDate(date) {
-    const [year, month, day] = date.split('-')
-    const formattedDate = [month, day, year].join('-')
-    return formattedDate
+function getSigDataURL (ref) {
+    return function (_) {
+        return ref.current.isEmpty() 
+            ? ""
+            : ref.current.getTrimmedCanvas().toDataURL()
+        
+    }
 }
