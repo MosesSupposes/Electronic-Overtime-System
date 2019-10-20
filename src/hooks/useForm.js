@@ -8,7 +8,7 @@ export default function useForm(initialState={}, handleSubmitCb=x=>x) {
     }
 
     const handleSubmit = event => {
-        event.prventDefault()
+        event.preventDefault()
         handleSubmitCb(formValues)
     }
 
