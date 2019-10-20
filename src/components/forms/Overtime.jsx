@@ -80,7 +80,7 @@ export default function OvertimeForm(props) {
             <H2>PRIOR AUTHORIZATION -- OVERTIME APPROVAL</H2>
 
             <Form onSubmit={handleSubmit}>
-                <Form.Group>
+                <Form.Group widths="equal">
                     <Form.Field>
                         <label>Today's Date</label>
                         <Input
@@ -119,7 +119,7 @@ export default function OvertimeForm(props) {
                     />
                 </Form.Field>
 
-                <Form.Group>
+                <Form.Group widths="equal">
                     <Form.Field>
                         <label>Date of Appointment</label>
                         <Input
@@ -140,7 +140,7 @@ export default function OvertimeForm(props) {
                     </Form.Field>
                 </Form.Group>
 
-                <Form.Group>
+                <Form.Group widths="equal">
                     <Form.Field id="comp-time">
                         <label>Comp Time</label>
                         <Input
@@ -197,7 +197,7 @@ export default function OvertimeForm(props) {
                 </Form.Field>
         
                 <span><strong>OT Hours Worked</strong></span>
-                <Form.Group>
+                <Form.Group widths="equal">
                     <Form.Field>
                         <label>From</label>
                         <Input
@@ -217,7 +217,7 @@ export default function OvertimeForm(props) {
                     </Form.Field>
                 </Form.Group>
 
-                <Form.Group>
+                <Form.Group widths="equal">
                     <Form.Field>
                         <label>Supervisor</label>
                         <input 
