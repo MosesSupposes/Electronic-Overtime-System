@@ -28,11 +28,6 @@ const HR = styled.hr`
     margin: 2rem 0;
 `
 
-const StackVertically = styled.div`
-    display: flex;
-    flex-direction: column;
-`
-
 
 /**
  * Component
