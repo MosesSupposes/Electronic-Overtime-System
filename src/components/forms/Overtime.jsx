@@ -42,7 +42,8 @@ export default function OvertimeForm(props) {
             todaysDate: formatDate,
             dateOfAppointment: formatDate,
             dateOvertimeOccured: formatDate,
-            regularWorkdayStartTime: determineStartTime(startTimeRef, formState.regularWorkdayStartTime)
+            regularWorkdayStartTime: determineStartTime(startTimeRef),
+            signature: getSigDataURL
         })
         console.log(formState)
     }
@@ -63,17 +64,32 @@ export default function OvertimeForm(props) {
         supervisor: '',
         seniorSupervisor: '',
         supervisorsInitials: '',
+        signature: ''
 
     }, handleSubmitCb)
 
     const [showOtherStartTimeInput, setShowOtherStartTimeInput] = React.useState(false)
     const conditionallyDisplayOtherStartTimeInput = event => {
+        // always hide the custom input field in case the user switches from `other` to another dropdown choice
+        setShowOtherStartTimeInput(false)
+        // reset regularWorkDayStartTime in case the user entered a custom time and then changed their mind.
+        // If we didn't reset it here, even if the user changed their mind and selected one of the dropdown options, 
+        // their new choice would get ignored and whetever they typed into the input field would get submitted.
+        // See `deterimeStartTime` function to see why this is.
+        setFormState({...formState, regularWorkdayStartTime: ''})
+        
         if (event.currentTarget.value === 'other') {
             setShowOtherStartTimeInput(true)
         }
     }
-    
+
     const startTimeRef = React.useRef()
+    const sigRef = React.useRef()
+
+    const getSigDataURL = () => {
+        setFormState({...formState, signature: sigRef.current.getTrimmedCanvas().toDataURL()})
+        return sigRef.current.getTrimmedCanvas().toDataURL()
+    }
 
     return (
         <FlexContainer>
@@ -253,7 +269,7 @@ export default function OvertimeForm(props) {
                 </Form.Field>   
 
                 <Form.Field>
-                    <Signature title="Worker's Signature" />
+                    <Signature title="Worker's Signature" ref={sigRef}  />
                 </Form.Field>
 
                 <Button 
@@ -272,8 +288,8 @@ export default function OvertimeForm(props) {
  * Helpers
  */
 
- function determineStartTime(ref, startTime) {
-    return function() {
+ function determineStartTime(ref) {
+    return function(startTime) {
         return startTime ? startTime : ref.current.value
     }
  }
