@@ -14,19 +14,15 @@ const SigContainer = styled.div`
     }
 `  
 
-export default function Signature(props) {
-    let sigCanvas = null
-    const setSigCanvas = ref => {
-        sigCanvas = ref
-    }
-
-    const clearSignature = e => {
-        sigCanvas.clear()
-    }
-
+export default React.forwardRef((props, ref) => {
     const canvasProps = {
         className: 'sigCanvas',
         height: props.height || 200,
+    }
+
+    const clearSignature = e => {
+        console.log(ref)
+        ref.current.clear()
     }
 
     return (
@@ -36,9 +32,11 @@ export default function Signature(props) {
                 <span><strong>{props.title}</strong></span>
             }
             <SignatureCanvas 
+                {...props}
                 canvasProps={canvasProps}
                 clearOnResize={props.clearOnResize || false}
-                ref={setSigCanvas}
+                ref={ref}
+                // forwarededRef={ref}
             />
 
             <Button 
@@ -52,4 +50,5 @@ export default function Signature(props) {
 
         </>
     )
-}
+})
+
