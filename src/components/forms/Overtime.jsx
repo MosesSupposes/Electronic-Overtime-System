@@ -15,6 +15,8 @@ const FlexContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    margin-top: 1rem;
 `
 
 const H2 = styled.h2`
