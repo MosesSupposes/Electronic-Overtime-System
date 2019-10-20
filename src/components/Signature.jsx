@@ -7,13 +7,16 @@ import { Button } from 'semantic-ui-react'
 // styles
 const SigContainer = styled.div`
   display: block;
+
+  .sigCanvas {
+      border: 2px solid black;
+  }
 `  
 
-export default function Signature(props) {
+export default function Signature(props={width:500, height:200}) {
     let sigCanvas = null
     const setSigCanvas = ref => {
         sigCanvas = ref
-        sigCanvas._canvas.style.border = "1px solid black"
     }
 
     const clearSignature = e => {
@@ -24,11 +27,11 @@ export default function Signature(props) {
         <>
         <SigContainer>
             <SignatureCanvas 
-                canvasProps={{width: 500, height: 200, className: 'sigCanvas'}}
+                canvasProps={{width: props.width, height: props.height, className: 'sigCanvas'}}
                 ref={setSigCanvas}
             />
         </SigContainer>
-        <Button onClick={clearSignature}>Clear</Button>
+        <Button onClick={clearSignature} type="button">Clear</Button>
         </>
     )
 }
