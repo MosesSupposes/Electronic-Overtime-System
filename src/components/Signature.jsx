@@ -4,24 +4,26 @@ import SignatureCanvas from 'react-signature-canvas'
 import { Button } from 'semantic-ui-react'
 
 
-// styles
-const SigContainer = styled.div`
-    .sigCanvas {
-        display: block;
-        border: 2px solid black;
-        width: 100%;
-        margin: .25rem 0;
-    }
-`  
-
 export default React.forwardRef((props, ref) => {
+    const SigContainer = styled.div`    
+        .sigCanvas {
+            display: block;
+            border: ${props.error ? '2px solid #e0b4b4;' : '2px solid black;'} 
+            width: 100%;
+            margin: .25rem 0;
+        }
+
+        span {
+            color: ${props.error ? '#9f3a38;' : 'black;'}
+        }
+    `  
+    
     const canvasProps = {
         className: 'sigCanvas',
         height: props.height || 200,
     }
 
     const clearSignature = e => {
-        console.log(ref)
         ref.current.clear()
     }
 
@@ -36,7 +38,6 @@ export default React.forwardRef((props, ref) => {
                 canvasProps={canvasProps}
                 clearOnResize={props.clearOnResize || false}
                 ref={ref}
-                // forwarededRef={ref}
             />
 
             <Button 
