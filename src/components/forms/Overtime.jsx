@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Form, Button, Input } from 'semantic-ui-react'
+import { Form, Button, Input, Message } from 'semantic-ui-react'
 import * as R from 'ramda'
 
 
@@ -60,6 +60,10 @@ const initialErrorState = filterObj(removeFieldsReferencingDisabledInputs, initi
  
 export default function OvertimeForm(props) {
     const handleSubmitCb = formState => {
+        // hide any error or success messages every time the form is submitted
+        setHideErrorMessage(true)
+        setHideSuccessMessage(true)
+        
         formState = R.evolve(R.__, formState)({
             todaysDate: formatDate,
             dateOfAppointment: formatDate,
@@ -71,20 +75,24 @@ export default function OvertimeForm(props) {
         if (validateForm(formState, errors, setErrors)) {
             console.log('form is valid!')
             console.log('FORM TO BE SUBMITTED: ', formState)
+            setHideSuccessMessage(false)
 
             // TODO: send form to server
         } else {
             console.log('form is invalid.')
             console.log('ERRORS:', errors)
+            setHideErrorMessage(false)
         }
-        
     }
     
     const [formState, setFormState, handleChange, handleSubmit] = useForm(initialFormState, handleSubmitCb)
-    const [errors, setErrors] = React.useState(initialErrorState)
-
+    
     const [showOtherStartTimeInput, setShowOtherStartTimeInput] = React.useState(false)
 
+    const [errors, setErrors] = React.useState(initialErrorState)
+    const [hideErrorMessage, setHideErrorMessage] = React.useState(true)
+    const [hideSuccessMessage, setHideSuccessMessage] = React.useState(true)
+    
     const startTimeRef = React.useRef()
     const sigRef = React.useRef()
 
@@ -108,9 +116,9 @@ export default function OvertimeForm(props) {
         <FlexContainer>
             <H2>PRIOR AUTHORIZATION -- OVERTIME APPROVAL</H2>
 
-            <Form onSubmit={handleSubmit} error>
+            <Form onSubmit={handleSubmit}>
                 <Form.Group widths="equal">
-                    <Form.Field>
+                    <Form.Field error={!!errors.todaysDate}>
                         <label>Today's Date</label>
                         <Input
                             name="todaysDate"
@@ -120,7 +128,7 @@ export default function OvertimeForm(props) {
                         />
                     </Form.Field>
 
-                    <Form.Field>
+                    <Form.Field error={!!errors.workersName}>
                         <label>Worker's Name</label>
                         <Input
                             name="workersName"
@@ -130,17 +138,16 @@ export default function OvertimeForm(props) {
                     </Form.Field>
                 </Form.Group>
 
-                <Form.Field>
+                <Form.Field error={!!errors.client}>
                     <label>Client</label>
                     <Input
                         name="client"
                         onChange={handleChange}
                         value={formState.client}
-                        // error={!!errors.client}
                     />
                 </Form.Field>
 
-                <Form.Field>
+                <Form.Field error={!!errors.reasonForOvertime}>
                     <label>Reason for Overtime</label>
                     <Input
                         name="reasonForOvertime"
@@ -150,7 +157,7 @@ export default function OvertimeForm(props) {
                 </Form.Field>
 
                 <Form.Group widths="equal">
-                    <Form.Field>
+                    <Form.Field error={!!errors.dateOfAppointment}>
                         <label>Date of Appointment</label>
                         <Input
                             name="dateOfAppointment"
@@ -160,7 +167,7 @@ export default function OvertimeForm(props) {
                         />
                     </Form.Field>
 
-                    <Form.Field>
+                    <Form.Field error={!!errors.anticipatedLength}>
                         <label>Anticipated Length</label>
                         <Input
                             name="anticipatedLength"
@@ -171,7 +178,7 @@ export default function OvertimeForm(props) {
                 </Form.Group>
 
                 <Form.Group widths="equal">
-                    <Form.Field id="comp-time">
+                    <Form.Field error={!!errors.compTime}>
                         <label>Comp Time</label>
                         <Input
                             name="compTime"
@@ -180,7 +187,7 @@ export default function OvertimeForm(props) {
                         />
                     </Form.Field>
 
-                    <Form.Field id="payment">
+                    <Form.Field error={!!errors.payment}>
                         <label>Payment</label>
                         <Input
                             name="payment"
@@ -194,7 +201,7 @@ export default function OvertimeForm(props) {
                 <HR />
 
                 
-                <Form.Field>
+                <Form.Field error={!!errors.dateOvertimeOccured}>
                     <label>Date Overtime Occured</label>
                     <Input
                         name="dateOvertimeOccured"
@@ -204,7 +211,7 @@ export default function OvertimeForm(props) {
                     />
                 </Form.Field>
 
-                <Form.Field>
+                <Form.Field error={!!errors.regularWorkdayStartTime}>
                     <label>Regular Workday Start Time</label>
                     <select 
                         ref={startTimeRef}
@@ -228,7 +235,7 @@ export default function OvertimeForm(props) {
         
                 <span><strong>OT Hours Worked</strong></span>
                 <Form.Group widths="equal">
-                    <Form.Field>
+                    <Form.Field error={!!errors.hoursWorkedFrom}>
                         <label>From</label>
                         <Input
                             name="hoursWorkedFrom"
@@ -237,7 +244,7 @@ export default function OvertimeForm(props) {
                         />
                     </Form.Field>
 
-                    <Form.Field>
+                    <Form.Field error={!!errors.hoursWorkedTo}>
                         <label>To</label>
                         <Input
                             name="hoursWorkedTo"
@@ -248,7 +255,7 @@ export default function OvertimeForm(props) {
                 </Form.Group>
 
                 <Form.Group widths="equal">
-                    <Form.Field>
+                    <Form.Field error={!!errors.supervisor}>
                         <label>Supervisor</label>
                         <input 
                             name="supervisor"
@@ -257,7 +264,7 @@ export default function OvertimeForm(props) {
                         />
                     </Form.Field>
 
-                    <Form.Field>
+                    <Form.Field error={!!errors.seniorSupervisor}>
                         <label>Senior Supervisor</label>
                         <input 
                             name="seniorSupervisor"
@@ -282,8 +289,8 @@ export default function OvertimeForm(props) {
                     />
                 </Form.Field>   
 
-                <Form.Field>
-                    <Signature title="Worker's Signature" ref={sigRef}  />
+                <Form.Field error={!!errors.workersSignature}>
+                    <Signature error={!!errors.signature} title="Worker's Signature" ref={sigRef}  />
                 </Form.Field>
 
                 <Button 
@@ -294,6 +301,20 @@ export default function OvertimeForm(props) {
                     Submit
                 </Button>
             </Form>
+
+            <Message 
+                    hidden={hideErrorMessage}
+                    error
+                    header="Error"
+                    content="There are some missing fields."
+                />
+
+            <Message 
+                hidden={hideSuccessMessage}
+                positive
+                header="Success!"
+                content="Your form has been submitted."
+            />
         </FlexContainer>
     )
 }
@@ -344,7 +365,7 @@ function validateForm(formState, errorState, setErrorState) {
         // ignore disabled inputs
         if (key !== 'supervisorsInitials') {
             // empty form field?
-            if (value === "") {
+            if (value === "" || value === "--") {
                 // update component state with error message
                 setErrorState( (prevState) => ({ ...prevState, [key]: 'Please fill out this field.' }) )
                 // mututate local copy of state since the errorState param will now become out of sync with the component state
