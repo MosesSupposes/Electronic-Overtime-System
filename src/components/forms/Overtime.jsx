@@ -6,6 +6,7 @@ import * as R from 'ramda'
 
 import Signature from '../Signature'
 import useForm from '../../hooks/useForm'
+import filterObj from '../../utils/filterObj'
 
  /**
   * Styles
@@ -33,6 +34,30 @@ const HR = styled.hr`
  * Component
  */
 
+const initialFormState = {
+    todaysDate: '',
+    workersName: '',
+    client: '',
+    reasonForOvertime: '',
+    dateOfAppointment: '',
+    anticipatedLength: '',
+    compTime: '',
+    payment: '',
+    dateOvertimeOccured: '',
+    hoursWorkedFrom: '',
+    hoursWorkedTo: '',
+    regularWorkdayStartTime: '',
+    supervisor: '',
+    seniorSupervisor: '',
+    supervisorsInitials: '',
+    signature: ''
+}
+
+// Filter out the values of the disabled inputs since 
+// the user shouldn't be shown an error and asked to fill out these fields.
+const removeFieldsReferencingDisabledInputs = (key, value) => (key !== 'supervisorsInitials')
+const initialErrorState = filterObj(removeFieldsReferencingDisabledInputs, initialFormState)
+ 
 export default function OvertimeForm(props) {
     const handleSubmitCb = formState => {
         formState = R.evolve(R.__, formState)({
@@ -40,32 +65,29 @@ export default function OvertimeForm(props) {
             dateOfAppointment: formatDate,
             dateOvertimeOccured: formatDate,
             regularWorkdayStartTime: determineStartTime(startTimeRef),
-            signature: getSigDataURL(sigRef)
+            signature: getSigDataURL(sigRef, formState, setFormState)
         })
-        console.log(formState)
+        
+        if (validateForm(formState, errors, setErrors)) {
+            console.log('form is valid!')
+            console.log('FORM TO BE SUBMITTED: ', formState)
+
+            // TODO: send form to server
+        } else {
+            console.log('form is invalid.')
+            console.log('ERRORS:', errors)
+        }
+        
     }
     
-    const [formState, setFormState, handleChange, handleSubmit] = useForm({
-        todaysDate: '',
-        workersName: '',
-        client: '',
-        reasonForOvertime: '',
-        dateOfAppointment: '',
-        anticipatedLength: '',
-        compTime: '',
-        payment: '',
-        dateOvertimeOccured: '',
-        hoursWorkedFrom: '',
-        hoursWorkedTo: '',
-        regularWorkdayStartTime: '',
-        supervisor: '',
-        seniorSupervisor: '',
-        supervisorsInitials: '',
-        signature: ''
-
-    }, handleSubmitCb)
+    const [formState, setFormState, handleChange, handleSubmit] = useForm(initialFormState, handleSubmitCb)
+    const [errors, setErrors] = React.useState(initialErrorState)
 
     const [showOtherStartTimeInput, setShowOtherStartTimeInput] = React.useState(false)
+
+    const startTimeRef = React.useRef()
+    const sigRef = React.useRef()
+
     const conditionallyDisplayOtherStartTimeInput = event => {
         // always hide the custom input field in case the user switches from `other` to another dropdown choice
         setShowOtherStartTimeInput(false)
@@ -80,14 +102,13 @@ export default function OvertimeForm(props) {
         }
     }
 
-    const startTimeRef = React.useRef()
-    const sigRef = React.useRef()
+   
 
     return (
         <FlexContainer>
             <H2>PRIOR AUTHORIZATION -- OVERTIME APPROVAL</H2>
 
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} error>
                 <Form.Group widths="equal">
                     <Form.Field>
                         <label>Today's Date</label>
@@ -115,6 +136,7 @@ export default function OvertimeForm(props) {
                         name="client"
                         onChange={handleChange}
                         value={formState.client}
+                        // error={!!errors.client}
                     />
                 </Form.Field>
 
@@ -292,11 +314,50 @@ function determineStartTime(ref) {
     }
  }
 
-function getSigDataURL (ref) {
+function getSigDataURL (ref, formState, setFormState) {
+    const dataUrl = ref.current.getTrimmedCanvas().toDataURL()
+
     return function (_) {
-        return ref.current.isEmpty() 
-            ? ""
-            : ref.current.getTrimmedCanvas().toDataURL()
-        
+        if (ref.current.isEmpty()) {
+            return ""
+        } else {
+            setFormState({...formState, signature: dataUrl})
+            return dataUrl
+        }
     }
+}
+
+function validateForm(formState, errorState, setErrorState) {
+    // Make a copy of errorState since we're going to be mutating it.
+    errorState = Object.assign({}, errorState)
+
+    // Clear any pre-existing errors each time the form is validated.
+    const cleanSlate = {...errorState}
+    for (let key in cleanSlate) {
+        cleanSlate[key] = ""
+    }
+    setErrorState(cleanSlate)
+    errorState = cleanSlate
+
+    // set an error any time an empty field is found in the formState
+    Object.entries(formState).forEach(([key, value]) => {
+        // ignore disabled inputs
+        if (key !== 'supervisorsInitials') {
+            // empty form field?
+            if (value === "") {
+                // update component state with error message
+                setErrorState( (prevState) => ({ ...prevState, [key]: 'Please fill out this field.' }) )
+                // mututate local copy of state since the errorState param will now become out of sync with the component state
+                errorState[key] = 'Please fill out this field.'
+            }
+        }
+    })
+
+    // check if errorState is an object full of empty strings. 
+    // If so, no errors were set and we can return true -- meaning there were no errors and the form is therefore valid.
+    // Otherwise, there were errors, so we can return false because the form was invalid.
+    const isEmptyString = R.equals("")
+    const hasNoErrors = Object.values(errorState).every(isEmptyString) ? true : false 
+
+    return hasNoErrors
 }
