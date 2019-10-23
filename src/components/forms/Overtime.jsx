@@ -77,6 +77,10 @@ export default function OvertimeForm(props) {
             console.log('FORM TO BE SUBMITTED: ', formState)
             setHideSuccessMessage(false)
 
+            // TODO: grab this input from the user
+            // const supervisorEmail = 'mosamuel98@gmail.com'
+            // window.open(`mailto:${supervisorEmail}?subject=electronic%20overtime%20form%20submission?&body=${encodeFormSubmission(formState)}`)
+
             // TODO: send form to server
         } else {
             console.log('form is invalid.')
@@ -222,6 +226,7 @@ export default function OvertimeForm(props) {
                         <option value="9:00 AM">9:00 AM</option>
                         <option value="other">other</option>
                     </select>
+
                     {showOtherStartTimeInput && 
                         <Input 
                             name="regularWorkdayStartTime" 
@@ -381,4 +386,38 @@ function validateForm(formState, errorState, setErrorState) {
     const hasNoErrors = Object.values(errorState).every(isEmptyString) ? true : false 
 
     return hasNoErrors
+}
+
+function encodeFormSubmission(formState) {
+    // TODO: fix this function. Line 401 doesn't return the expected output
+    const titleCaseWithSpaces = (obj) => {
+        return Object.entries(obj).map(([formLabel, formValue]) => {
+            formLabel = formLabel
+                .split('')
+                .map((char, i) => {
+                    // upper-case the first letter
+                    if (i === 0) return char.toUpperCase()
+                    // add a URL encoded space to the beginning of each word
+                    else if (char === char.toUpperCase()) return `%20${char}`
+                    else return char
+                })
+                .join('')
+
+            return [formLabel, formValue]
+        })
+    } 
+
+    const appendColon = (entries) => entries.map(([formLabel, formValue]) => [formLabel + ":", formValue])
+
+    const addUrlEncodedWhiteSpace = (entries) => {
+        // %0A is the url encoding for a new line
+        return entries.map(([formLabel, formValue]) => [formLabel + '%0A%0A', formValue])
+    }
+    const joinIntoString = (entries) => entries.map(([formLabel, formValue]) => `${formLabel}${formValue}%0A`)
+    
+    
+    const format = R.pipe(titleCaseWithSpaces, appendColon, addUrlEncodedWhiteSpace, joinIntoString)
+
+    
+   return format(formState)
 }
