@@ -14,5 +14,10 @@
   "devDependencies": {
     "nodemon": "^1.19.4",
     "supertest": "^4.0.2"
+  },
+  "dependencies": {
+    "knex": "^0.19.5",
+    "pg": "^7.12.1",
+    "sqlite3": "^4.1.0"
   }
 }
