@@ -1,5 +1,5 @@
 {
-  "name": "electronic-overtime-system",
+  "name": "electronic-overtime-system-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
