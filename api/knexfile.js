@@ -2,22 +2,36 @@
 
 module.exports = {
 
-  development: {
-    development: {
-      client: 'sqlite3',
-      connection: { 
-        filename: './database/electronic-overtime-system.db3' 
-      },
-      useNullAsDefault: true,
-      migrations: {
-        directory: './database/development/migrations',
-        tableName: 'dbmigrations',
-      },
-      seeds: { 
-        directory: './database/development/seeds' 
-      },
+  development: {    
+    client: 'sqlite3',
+    connection: { 
+      filename: './database/electronic-overtime-system-dev.db3' 
+    },
+    useNullAsDefault: true,
+    migrations: {
+      directory: './database/development/migrations',
+      tableName: 'dbmigrations',
+    },
+    seeds: { 
+      directory: './database/development/seeds' 
     },
   },
+
+  testing: {
+    client: 'sqlite3',
+    connection: { 
+      filename: './database/electronic-overtime-system-testing.db3' 
+    },
+    useNullAsDefault: true,
+    migrations: {
+      directory: './database/testing/migrations',
+      tableName: 'dbmigrations',
+    },
+    seeds: { 
+      directory: './database/testing/seeds' 
+    },
+  },
+  
   staging: {
     client: 'postgresql',
     connection: "postgres://localhost/electronic-overtime-system",
