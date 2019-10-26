@@ -16,8 +16,11 @@
     "supertest": "^4.0.2"
   },
   "dependencies": {
+    "bcrypt": "^3.0.6",
+    "connect-session-knex": "^1.4.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-session": "^1.17.0",
     "helmet": "^3.21.2",
     "knex": "^0.19.5",
     "node-mandrill": "^1.0.1",
