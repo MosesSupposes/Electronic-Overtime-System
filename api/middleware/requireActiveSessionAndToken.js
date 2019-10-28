@@ -21,4 +21,4 @@ function requireActiveSessionAndToken(req, res, next) {
     }
 }
 
-module.exports = requireActiveSession
+module.exports = requireActiveSessionAndToken
