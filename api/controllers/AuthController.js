@@ -17,16 +17,26 @@ function generateToken(user) {
 
 class AuthController {
     static async register(req, res) {
-        try {
-            const newUser = await UsersModel.create(req.body)
-            res.status(201).json({
-                success: `Welcome ${newUser.username}!`,
-                user: newUser,
-                token: generateToken(newUser)
-            })
-        } catch(e) {
-            res.status(400).json({ error: { message: "A user with this name already exists." } })
-        }
+        bcrypt.hash(req.body.password, 8, (err, encryptedPw) => {
+            if (err) {
+                res.status(500).json({ error: { message: "Internal server error." } })
+            } else {
+                try {
+                    const newUser = await UsersModel.create({
+                        username: req.body.username,
+                        password: encryptedPw
+                    })
+                    
+                    res.status(201).json({
+                        success: `Welcome ${newUser.username}!`,
+                        user: newUser,
+                        token: generateToken(newUser)
+                    })
+                } catch(e) {
+                    res.status(400).json({ error: { message: "A user with this name already exists." } })
+                }
+            }
+        })
     }
 
     static async login(req, res) {
