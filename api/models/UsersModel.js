@@ -23,11 +23,13 @@ class UsersModel {
     }
 
     static async updateByUsername(username, changes) {
+        const newUsername = changes.username || username
+        
         await db('users')
             .update(changes)
             .where({username})
 
-        return this.findByUsername(username)
+        return this.findByUsername(newUsername)
     }
 
     static async updateById(id, changes) {
