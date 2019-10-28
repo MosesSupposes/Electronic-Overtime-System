@@ -3,8 +3,7 @@ const { jwtSecret } = require('../config/secrets')
 
 function requireActiveSessionAndToken(req, res, next) {
     if (req.session && req.session.token) {
-        // verify jwt token
-        jwt.verify(token, jwtSecret, (err, decodedToken) => {
+        jwt.verify(req.session.token, jwtSecret, (err, decodedToken) => {
             if (err) {
                 const error = new Error('Invalid token.')
                 error.status = 400
