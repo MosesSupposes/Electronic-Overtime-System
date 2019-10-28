@@ -49,15 +49,24 @@ class UsersModel {
     }
     
     static async destroyByUsername(username) {
-        return db('users')
-            .delete()
-            .where({username})
+        if (await this.findByUsername(username) === undefined) {
+            return `Couldn't delete user ${username}. That user doesn't exist.`
+        } else {
+            return db('users')
+                .delete()
+                .where({username})
+        }
+        
     }
 
     static async destroyById(id) {
-        return db('users')
-            .delete()
-            .where({id})
+        if (await this.findById(id) === undefined) {
+            return `Couldn't delete user with the id of ${id}. That user doesn't exist.`
+        } else {
+            return db('users')
+                .delete()
+                .where({id})
+        }
     }
 }
 

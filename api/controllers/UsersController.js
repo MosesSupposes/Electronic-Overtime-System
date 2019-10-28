@@ -47,8 +47,10 @@ class UsersController {
 
     static async deleteByUsername(req, res) {
         try {
-            await UsersModel.destroyByUsername(req.params.username)
-            res.status(200).json({ success: `Deleted user ${req.params.username}`})
+            const count = await UsersModel.destroyByUsername(req.params.username)
+            ;(typeof count === "number")
+                ? res.status(200).json({ success: `Deleted user ${req.params.username}`})
+                : res.status(404).json({ error: { message: count } })
         } catch(e) {
             res.status(500).json({ error: { message: `User ${req.params.username} does not exist.` } })
         }
