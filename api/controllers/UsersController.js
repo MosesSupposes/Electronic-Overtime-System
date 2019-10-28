@@ -47,7 +47,7 @@ class UsersController {
 
     static async deleteByUsername(req, res) {
         try {
-            await UsersModel.deleteByUsername(req.params.username)
+            await UsersModel.destroyByUsername(req.params.username)
             res.status(200).json({ success: `Deleted user ${req.params.username}`})
         } catch(e) {
             res.status(500).json({ error: { message: `User ${req.params.username} does not exist.` } })
