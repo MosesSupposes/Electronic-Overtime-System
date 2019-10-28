@@ -14,7 +14,7 @@ class UsersController {
     static async getByUsername(req, res) {
         try {
             const user = await UsersModel.findByUsername(req.params.username)
-            (user) 
+            ;(user) 
                 ? res.status(200).json(user)
                 : res.status(404).json({ error: { message: `User ${req.params.username} does not exist.` } })
         } catch(e) {
