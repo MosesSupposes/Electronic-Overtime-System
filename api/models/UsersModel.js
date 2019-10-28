@@ -25,19 +25,27 @@ class UsersModel {
     static async updateByUsername(username, changes) {
         const newUsername = changes.username || username
         
-        await db('users')
-            .update(changes)
-            .where({username})
-
-        return this.findByUsername(newUsername)
+        if (await this.findByUsername(username) === undefined) {
+            return `No user found with the username ${username}`
+        } else {
+            await db('users')
+                .update(changes)
+                .where({username})
+    
+            return this.findByUsername(newUsername)
+        }
     }
 
     static async updateById(id, changes) {
-        await db('users')
-            .update(changes)
-            .where({id})
-
-        return this.findById(id)
+        if (await this.findById(id) === undefined) {
+            return `No user found with the id of ${id}`
+        } else {
+            await db('users')
+                .update(changes)
+                .where({id})
+    
+            return this.findById(id)
+        }
     }
     
     static async destroyByUsername(username) {
