@@ -28,7 +28,7 @@ class AuthController {
                     })
 
                     // generate a token and store it on a cookie
-                    const token = generateToken(user)
+                    const token = generateToken(newUser)
                     req.session.token = token 
 
                     res.status(201).json({
@@ -37,6 +37,7 @@ class AuthController {
                         token
                     })
                 } catch(e) {
+                    console.error(e)
                     res.status(400).json({ error: { message: "A user with this name already exists." } })
                 }
             }
