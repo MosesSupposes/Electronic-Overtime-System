@@ -42,11 +42,12 @@ class AuthController {
     static async login(req, res) {
         try {
             const user = await UsersModel.findByUsername(req.body.username)
+            
             bcrypt.compare(req.body.password, user.password, (err, passwordsMatch) => {
                 if (err) res.status(500).json({ error: { message: 'Internal server error.' } })
                 else if (!passwordsMatch) res.status(400).json({ error: { message: "Invalid password." } })
                 else res.status(200).json({
-                    success: `Welcome ${newUser.username}!`,
+                    success: `Welcome ${user.username}!`,
                     user,
                     token: generateToken(user)
                 })
