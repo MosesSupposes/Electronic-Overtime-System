@@ -17,7 +17,7 @@ function generateToken(user) {
 
 class AuthController {
     static async register(req, res) {
-        bcrypt.hash(req.body.password, 8, (err, encryptedPw) => {
+        bcrypt.hash(req.body.password, 8, async (err, encryptedPw) => {
             if (err) {
                 res.status(500).json({ error: { message: "Internal server error." } })
             } else {
@@ -26,7 +26,7 @@ class AuthController {
                         username: req.body.username,
                         password: encryptedPw
                     })
-                    
+
                     res.status(201).json({
                         success: `Welcome ${newUser.username}!`,
                         user: newUser,
