@@ -1,4 +1,5 @@
 const UsersModel = require('../models/UsersModel')
+const bcrypt = require('bcrypt')
 
 class UsersController {
     static async allUsers(req, res) {
@@ -23,6 +24,8 @@ class UsersController {
         try {
             const userBeforeUpdate = await UsersModel.findByUsername(req.params.username)
             try {
+                if (req.body.password) req.body.password = bcrypt.hashSync(req.body.password, 8)
+
                 const userAfterUpdate = await UsersModel.updateByUsername(req.params.username, req.body)
                 res.status(200).json({
                     beforeUpdate: userBeforeUpdate,
