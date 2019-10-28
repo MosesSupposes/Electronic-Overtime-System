@@ -11,7 +11,7 @@ router.use(requireActiveSessionAndToken)
 router.get('/', UsersController.allUsers)
 
 router.route('/:username')
-    .get(requireUsernameAndPassword, UsersController.getByUsername)
+    .get(UsersController.getByUsername)
     .put(requireUsernameAndPassword, UsersController.updateByUsername)
     .delete(UsersController.deleteByUsername)
 
