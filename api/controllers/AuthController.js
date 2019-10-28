@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
-const AuthModel = require('../models/AuthModel')
+const UsersModel = require('../models/UsersModel')
 const { jwtSecret } = require('../config/secrets')
 
 
@@ -18,7 +18,7 @@ function generateToken(user) {
 class AuthController {
     static async register(req, res) {
         try {
-            const newUser = await AuthModel.create(req.body)
+            const newUser = await UsersModel.create(req.body)
             res.status(201).json({
                 success: `Welcome ${newUser.username}!`,
                 user: newUser,
@@ -31,7 +31,7 @@ class AuthController {
 
     static async login(req, res) {
         try {
-            const user = await AuthModel.findByUsername(req.body.username)
+            const user = await UsersModel.findByUsername(req.body.username)
             bcrypt.compare(req.body.password, user.password, (err, passwordsMatch) => {
                 if (err) res.status(500).json({ error: { message: 'Internal server error.' } })
                 else if (!passwordsMatch) res.status(400).json({ error: { message: "Invalid password." } })
