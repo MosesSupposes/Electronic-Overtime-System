@@ -27,10 +27,14 @@ class AuthController {
                         password: encryptedPw
                     })
 
+                    // generate a token and store it on a cookie
+                    const token = generateToken(user)
+                    req.session.token = token 
+
                     res.status(201).json({
                         success: `Welcome ${newUser.username}!`,
                         user: newUser,
-                        token: generateToken(newUser)
+                        token
                     })
                 } catch(e) {
                     res.status(400).json({ error: { message: "A user with this name already exists." } })
@@ -42,15 +46,21 @@ class AuthController {
     static async login(req, res) {
         try {
             const user = await UsersModel.findByUsername(req.body.username)
-            
+
             bcrypt.compare(req.body.password, user.password, (err, passwordsMatch) => {
                 if (err) res.status(500).json({ error: { message: 'Internal server error.' } })
                 else if (!passwordsMatch) res.status(400).json({ error: { message: "Invalid password." } })
-                else res.status(200).json({
-                    success: `Welcome ${user.username}!`,
-                    user,
-                    token: generateToken(user)
-                })
+                else {
+                    // generate a token and store it on a cookie
+                    const token = generateToken(user)
+                    req.session.token = token 
+                    
+                    res.status(200).json({
+                        success: `Welcome ${user.username}!`,
+                        user,
+                        token
+                    })
+                }
             })
         } catch(e) {
             res.status(500).json({ error: { message: "Invalid credentials." } })
