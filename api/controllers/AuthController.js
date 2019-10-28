@@ -37,7 +37,6 @@ class AuthController {
                         token
                     })
                 } catch(e) {
-                    console.error(e)
                     res.status(400).json({ error: { message: "A user with this name already exists." } })
                 }
             }
