@@ -43,7 +43,7 @@ const initialFormState = {
     anticipatedLength: '',
     compTime: '',
     payment: '',
-    dateOvertimeOccured: '',
+    dateOvertimeOccurred: '',
     hoursWorkedFrom: '',
     hoursWorkedTo: '',
     regularWorkdayStartTime: '',
@@ -67,7 +67,7 @@ export default function OvertimeForm(props) {
         formState = R.evolve(R.__, formState)({
             todaysDate: formatDate,
             dateOfAppointment: formatDate,
-            dateOvertimeOccured: formatDate,
+            dateOvertimeOccurred: formatDate,
             regularWorkdayStartTime: determineStartTime(startTimeRef),
             signature: getSigDataURL(sigRef, formState, setFormState)
         })
@@ -201,13 +201,13 @@ export default function OvertimeForm(props) {
                 <HR />
 
                 
-                <Form.Field error={!!errors.dateOvertimeOccured}>
+                <Form.Field error={!!errors.dateOvertimeOccurred}>
                     <label>Date Overtime Occured</label>
                     <Input
-                        name="dateOvertimeOccured"
+                        name="dateOvertimeOccurred"
                         type="date"
                         onChange={handleChange}
-                        value={formState.dateOvertimeOccured}
+                        value={formState.dateOvertimeOccurred}
                     />
                 </Form.Field>
 
