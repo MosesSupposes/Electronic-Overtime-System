@@ -49,6 +49,10 @@ server.use(sessions(sessionConfiguration))
 server.use(helmet())
 server.use(cors())
 
+server.get('/', (req, res) => {
+  res.status(200).json({ api: 'running' })
+})
+
 server.use('/api/auth', authRouter)
 server.use('/api/users', usersRouter)
 
