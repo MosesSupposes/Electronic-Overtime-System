@@ -30,7 +30,8 @@ class UsersController {
 
                 const userAfterUpdate = await UsersModel.updateByUsername(req.params.username, req.body)
                 if (typeof userAfterUpdate === "string") {
-                    res.status(404).json({ error: { message: userAfterUpdate } })
+                    const errorMsg = userAfterUpdate
+                    res.status(404).json({ error: { message: errorMsg } })
                 } else {
                     res.status(200).json({
                         beforeUpdate: userBeforeUpdate,
