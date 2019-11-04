@@ -39,7 +39,7 @@ export default function Login(props) {
         // remove potential pre-existing failure message 
         setLoginFail(false)
 
-        axios.post('http://localhost:8888/api/auth/login', loginCredentials)
+        axios.post('https://electronic-overtime-system.herokuapp.com/api/auth/login', loginCredentials)
             .then(res => {
                 console.log(res)
                 setLoginSuccess(true)

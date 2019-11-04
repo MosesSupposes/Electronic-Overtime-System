@@ -45,7 +45,7 @@ export default function Register(props) {
             password.length >=6 && 
             password === cPassword
         ) {
-            axios.post('http://localhost:8888/api/auth/register', { username, password })
+            axios.post('https://electronic-overtime-system.herokuapp.com/api/auth/register', { username, password })
                 .then(res => { 
                     console.log(res)
                     // TODO: save username and role to global state via react-conflux 
