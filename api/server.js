@@ -53,11 +53,6 @@ server.get('/', (req, res) => {
   res.status(200).json({ api: 'running' })
 })
 
-// test -- this should be removed
-server.get('/node-env', (req, res) => {
-  res.status(200).json({ env: process.env.NODE_ENV})
-})
-
 server.use('/api/auth', authRouter)
 server.use('/api/users', usersRouter)
 
