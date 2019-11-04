@@ -18,7 +18,7 @@ class UsersModel {
     }
 
     static async create(user) {
-        const [id] = await db('users').insert(user)
+        const [id] = await db('users').insert(user, 'id')
         return this.findById(id)
     }
 
