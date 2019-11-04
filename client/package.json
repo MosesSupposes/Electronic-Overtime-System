@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "formik": "^1.5.8",
     "ramda": "^0.26.1",
     "react": "^16.10.2",
     "react-conflux": "^0.0.2-beta.6",
