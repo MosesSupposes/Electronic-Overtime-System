@@ -48,7 +48,7 @@ export default function Register(props) {
             axios.post('http://localhost:8888/api/auth/register', { username, password })
                 .then(res => { 
                     console.log(res)
-                    // TODO: save username to global state via react-conflux 
+                    // TODO: save username and role to global state via react-conflux 
                     setRegistrationSuccess(true)
                     setTimeout(() => { props.history.push('/') }, 1500)
                 })

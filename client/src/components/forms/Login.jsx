@@ -43,6 +43,7 @@ export default function Login(props) {
             .then(res => {
                 console.log(res)
                 setLoginSuccess(true)
+                // TODO: save username and role to global state via react-conflux 
                 setTimeout(() => { props.history.push('/') }, 1500)
             })
             .catch(err => {
