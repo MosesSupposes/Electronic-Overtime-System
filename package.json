@@ -16,5 +16,25 @@
   "bugs": {
     "url": "https://github.com/MosesSupposes/Electronic-Overtime-System/issues"
   },
-  "homepage": "https://electronic-overtime-system.mosessupposes.now.sh/"
+  "homepage": "https://electronic-overtime-system.mosessupposes.now.sh/",
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "nodemon": "^1.19.4",
+    "supertest": "^4.0.2"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "connect-session-knex": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "helmet": "^3.21.2",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.19.5",
+    "node-mandrill": "^1.0.1",
+    "pg": "^7.12.1",
+    "ramda": "^0.26.1",
+    "sqlite3": "^4.1.0"
+  }
 }
