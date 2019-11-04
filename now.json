@@ -1,0 +1,12 @@
+{
+    "version": 2,
+    "name": "Electronic Overtime System",
+    "builds": [{ 
+        "src": "electronic-overtime-system/client/package.json", 
+        "use": "@now/static-build", 
+        "config": {"distDir": "electronic-overtime-system/client/build"} 
+    }],
+    "routes": [
+        { "src": "/(.*)", "dest": "electronic-overtime-system/client/$1" }
+    ]
+}
