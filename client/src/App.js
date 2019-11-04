@@ -20,7 +20,7 @@ function App() {
       <h2>Employee Dashboard</h2>
 
       <Route path="/register" component={Register} />
-      <Route paht="/login" component={Login} />
+      <Route path="/login" component={Login} />
       <Route path="/forms/overtime" component={OvertimeForm} />
       {/* <Route path="/forms/absent" component={AbsentForm} /> */}
       
