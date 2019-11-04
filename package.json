@@ -1,0 +1,20 @@
+{
+  "name": "electronic-overtime-system",
+  "version": "1.0.0",
+  "description": "A tool for keeping track of employees' overtime hours",
+  "main": "api/index.js",
+  "scripts": {
+    "heroku-prebuild": "cd api && npm install",
+    "start": "cd api && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MosesSupposes/Electronic-Overtime-System.git"
+  },
+  "author": "Moses A. Samuel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MosesSupposes/Electronic-Overtime-System/issues"
+  },
+  "homepage": "https://electronic-overtime-system.mosessupposes.now.sh/"
+}
