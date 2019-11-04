@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from 'react-router-dom'
 import { Form, Button, Message } from 'semantic-ui-react'
 import styled from 'styled-components'
+import axios from 'axios'
 
 import useForm from '../../hooks/useForm'
 
@@ -25,7 +26,8 @@ export const P = styled.p`
 
 
 export default function Login(props) {
-	const [loginSuccess, setLoginSuccess] = React.useState(false)
+    const [loginSuccess, setLoginSuccess] = React.useState(false)
+    const [loginFail, setLoginFail] = React.useState(false)
 
   	const initialStateLogin = {
 		username: '',
@@ -34,7 +36,20 @@ export default function Login(props) {
 	
 	const handleSubmitCb = loginCredentials => {
         console.log('LOGIN CREDS:', loginCredentials)
-        setLoginSuccess(true)
+        // remove potential pre-existing failure message 
+        setLoginFail(false)
+
+        axios.post('http://localhost:8888/api/auth/login', loginCredentials)
+            .then(res => {
+                console.log(res)
+                setLoginSuccess(true)
+                setTimeout(() => { props.history.push('/') }, 1500)
+            })
+            .catch(err => {
+                console.error(err)
+                setLoginFail(true)
+            })
+            
 	}
   
 	const [loginCredentials,, handleChanges, handleSubmit] = useForm(initialStateLogin, handleSubmitCb)
@@ -71,6 +86,13 @@ export default function Login(props) {
                   <Message.Header>Success</Message.Header>
                   <p>You are now being redirected to the dashboard...</p>
               </Message>
+            }
+
+            { loginFail &&
+                <Message negative>
+                    <Message.Header>Error</Message.Header>
+                    <p>Invalid username or password.</p>
+                </Message>
             }
 
 			<P>
