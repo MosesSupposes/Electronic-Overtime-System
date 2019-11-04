@@ -3,6 +3,7 @@
 
 ## TODO:
 - Delete dummy accounts on production database
+- Add email field to registration form
 
 <hr>
 
