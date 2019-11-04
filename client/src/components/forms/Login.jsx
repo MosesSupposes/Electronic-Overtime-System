@@ -13,7 +13,12 @@ export const Container = styled.div`
 	flex-direction: column;
 	margin-top: 4rem;
 	align-items: center;
-	padding-bottom: 45vh;
+    padding-bottom: 45vh;
+
+    form {
+        padding: 0 2rem;
+        width: 350px;
+    }
 `
 
 export const Underlined = styled.span`
