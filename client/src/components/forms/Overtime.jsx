@@ -230,6 +230,7 @@ export default function OvertimeForm(props) {
                             value={formState.regularWorkdayStartTime}
                             autoFocus
                             placeholder="enter start time"
+                            style={{marginTop: ".5rem"}}
                         />
                     }
                 </Form.Field>
