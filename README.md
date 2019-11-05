@@ -3,7 +3,9 @@
 
 ## TODO:
 - Delete dummy accounts on production database
-- Add email field to registration form
+- ~Add email field to registration form~
+- Make email field notNullable in knex schema
+- Fix error that's not creating a session when users register or log in
 
 <hr>
 
