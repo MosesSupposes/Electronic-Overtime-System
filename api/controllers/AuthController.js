@@ -24,6 +24,7 @@ class AuthController {
                 try {
                     const newUser = await UsersModel.create({
                         username: req.body.username,
+                        email: req.body.email,
                         password: encryptedPw
                     })
 
