@@ -32,6 +32,8 @@ class AuthController {
                     const token = generateToken(newUser)
                     req.session.token = token 
 
+                    console.log('\n \n SESSION: ', req.session, '\n \n')
+
                     res.status(201).json({
                         success: `Welcome ${newUser.username}!`,
                         user: newUser,
@@ -55,6 +57,8 @@ class AuthController {
                     // generate a token and store it on a cookie
                     const token = generateToken(user)
                     req.session.token = token 
+
+                    console.log('\n \n SESSION: ', req.session, '\n \n')
                     
                     res.status(200).json({
                         success: `Welcome ${user.username}!`,
@@ -77,3 +81,4 @@ class AuthController {
 }
 
 module.exports = AuthController
+
