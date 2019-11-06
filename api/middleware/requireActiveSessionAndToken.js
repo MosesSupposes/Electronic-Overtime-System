@@ -16,7 +16,11 @@ function requireActiveSessionAndToken(req, res, next) {
     } else {
         const err = new Error('You need to login to access this enpoint.')
         err.status = 401
+
+        console.log('\n \n REQUEST FROM MIDDLEWARE:', req.session, '\n \n')
+        
         next(err)
+
     }
 }
 
