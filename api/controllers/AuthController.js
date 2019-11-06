@@ -31,6 +31,7 @@ class AuthController {
                     // generate a token and store it on a cookie
                     const token = generateToken(newUser)
                     req.session.token = token 
+                    req.session.username = req.body.username
 
                     console.log('\n \n SESSION: ', req.session, '\n \n')
 
@@ -57,6 +58,7 @@ class AuthController {
                     // generate a token and store it on a cookie
                     const token = generateToken(user)
                     req.session.token = token 
+                    req.session.username = req.body.username
 
                     console.log('\n \n SESSION: ', req.session, '\n \n')
                     
