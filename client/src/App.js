@@ -4,7 +4,7 @@ import './App.css'
 import OvertimeForm from './components/forms/Overtime'
 import Register from './components/forms/Register'
 import Login from './components/forms/Login'
-
+import AllUsers from './components/AllUsers'
 
 function App() {
   return (
@@ -22,6 +22,7 @@ function App() {
       <Route path="/register" component={Register} />
       <Route path="/login" component={Login} />
       <Route path="/forms/overtime" component={OvertimeForm} />
+      <Route path="/all-users" component={AllUsers} />
       {/* <Route path="/forms/absent" component={AbsentForm} /> */}
       
     </div>
