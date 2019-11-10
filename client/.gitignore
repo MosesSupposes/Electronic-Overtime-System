@@ -24,3 +24,7 @@ yarn-error.log*
 
 #elm stuff
 /elm-stuff
+
+*
+!*/
+!/node_modules/react-scripts/config/webpack.config.js
