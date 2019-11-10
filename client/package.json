@@ -8,6 +8,7 @@
     "react": "^16.10.2",
     "react-conflux": "^0.0.2-beta.6",
     "react-dom": "^16.11.0",
+    "react-elm-components": "^1.1.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "react-signature-canvas": "^1.0.3",
