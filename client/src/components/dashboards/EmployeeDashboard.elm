@@ -1,3 +1,6 @@
+module EmployeeDashboard exposing(..)
+
+
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
