@@ -15,7 +15,8 @@ type alias Apps = List String
 
 init : () -> (Model, Cmd Msg)
 init _ =
-  (Loading { spinner = Spinner.init }, Cmd.none)
+  -- (Loading { spinner = Spinner.init }, Cmd.none)
+  (Success ["Mile tracker", "Absent Form", "Overtime Form"], Cmd.none)
 
 
 type Msg

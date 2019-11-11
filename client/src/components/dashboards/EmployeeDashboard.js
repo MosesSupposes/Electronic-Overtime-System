@@ -612,7 +612,10 @@ function _Debug_toAnsiString(ansi, value)
 		{
 			var output = '[';
 
-			value.b && (output += _Debug_toAnsiString(ansi, value.a), value = value.b)
+			if (value.b) {
+				output += _Debug_toAnsiString(ansi, value.a)
+				value = value.b
+			}
 
 			for (; value.b; value = value.b) // WHILE_CONS
 			{
@@ -3965,24 +3968,22 @@ function _Browser_makeAnimator(model, draw)
 
 	var state = 0;
 
-	function updateIfNeeded()
-	{
+	function updateIfNeeded() {
 		state = state === 1
 			? 0
 			: ( _Browser_requestAnimationFrame(updateIfNeeded), draw(model), 1 );
 	}
 
-	return function(nextModel, isSync)
-	{
+	return function(nextModel, isSync) {
 		model = nextModel;
 
-		isSync
-			? ( draw(model),
-				state === 2 && (state = 1)
-				)
-			: ( state === 0 && _Browser_requestAnimationFrame(updateIfNeeded),
-				state = 2
-				);
+		if (isSync) { 
+			draw(model);
+			state === 2 && (state = 1) 
+		} else {
+			state === 0 && _Browser_requestAnimationFrame(updateIfNeeded)
+			state = 2;
+		}
 	};
 }
 
@@ -4042,7 +4043,7 @@ function _Browser_getUrl()
 var _Browser_go = F2(function(key, n)
 {
 	return A2(elm$core$Task$perform, elm$core$Basics$never, _Scheduler_binding(function() {
-		n && history.go(n);
+		n && window.history.go(n);
 		key();
 	}));
 });
@@ -4050,7 +4051,7 @@ var _Browser_go = F2(function(key, n)
 var _Browser_pushUrl = F2(function(key, url)
 {
 	return A2(elm$core$Task$perform, elm$core$Basics$never, _Scheduler_binding(function() {
-		history.pushState({}, '', url);
+		window.history.pushState({}, '', url);
 		key();
 	}));
 });
@@ -4058,7 +4059,7 @@ var _Browser_pushUrl = F2(function(key, url)
 var _Browser_replaceUrl = F2(function(key, url)
 {
 	return A2(elm$core$Task$perform, elm$core$Basics$never, _Scheduler_binding(function() {
-		history.replaceState({}, '', url);
+		window.history.replaceState({}, '', url);
 		key();
 	}));
 });
