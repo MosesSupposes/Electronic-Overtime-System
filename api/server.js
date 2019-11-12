@@ -19,10 +19,11 @@ const sessionConfiguration = {
     name: 'electronic-overtime-system',
     secret: process.env.SESSION_SECRET || 'this is not secret',
     cookie: {
-      httpOnly: process.env.NODE_ENV === 'production' ? true : false,
+      secure: false,
+      httpOnly: false,
       maxAge: 1000 * 60 * 60, // sessions last for one hour
       // secure: process.env.NODE_ENV === 'production' ? true : false,
-      secure: false
+      // httpOnly: process.env.NODE_ENV === 'production' ? true : false,
     },
     resave: false,
     saveUninitialized: true,
