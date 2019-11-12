@@ -18,33 +18,33 @@ type alias Apps = List String
 
 init : () -> (Model, Cmd Msg)
 init _ =
-  -- (Loading { spinner = Spinner.init }, Cmd.none)
-  (Success ["Mile tracker", "Absent Form", "Overtime Form"], Cmd.none)
+    -- (Loading { spinner = Spinner.init }, Cmd.none)
+    (Success ["Mile tracker", "Absent Form", "Overtime Form"], Cmd.none)
 
 
 type Msg
-  = Transition Spinner.Msg 
-  | LoadApps (Result Http.Error Apps)
+    = Transition Spinner.Msg 
+    | LoadApps (Result Http.Error Apps)
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
-  case msg of
-    -- Transition ->
-    --   (Loading, Cmd.none) -- TODO: load some data from the server
+    case msg of
+        -- Transition ->
+        --   (Loading, Cmd.none) -- TODO: load some data from the server
 
-    LoadApps result ->
-      case result of
-        Ok appUrls ->
-          (Success appUrls, Cmd.none)
+        LoadApps result ->
+            case result of
+                Ok appUrls ->
+                    (Success appUrls, Cmd.none)
 
-        Err _ ->
-          (Failure, Cmd.none)
-    
-    Transition spinnerMsg ->
+                Err _ ->
+                    (Failure, Cmd.none)
+        
+        Transition spinnerMsg ->
             let
                 spinnerModel =
-                    Spinner.update spinnerMsg mdl.spinner
+                        Spinner.update spinnerMsg mdl.spinner
 
                 mdl = 
                     case model of 
@@ -62,13 +62,13 @@ view model =
     case model of 
         Success appUrls -> 
             case appUrls of
-                [] ->
-                    div [] [ p [] [ text "More apps comings soon."]]
+                    [] ->
+                        div [] [ p [] [ text "More apps comings soon."]]
 
-                urls -> 
-                    div [] [ 
-                        ul [] <| List.map (\url -> li [] [ text url]) urls 
-                    ]
+                    urls -> 
+                        div [] [ 
+                                ul [] <| List.map (\url -> li [] [ text url]) urls 
+                        ]
 
         Loading m -> 
             -- div [] [ p [ text "Loading..."]]
