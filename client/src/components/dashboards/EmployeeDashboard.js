@@ -3968,21 +3968,23 @@ function _Browser_makeAnimator(model, draw)
 
 	var state = 0;
 
-	function updateIfNeeded() {
+	function updateIfNeeded()
+	{
 		state = state === 1
 			? 0
 			: ( _Browser_requestAnimationFrame(updateIfNeeded), draw(model), 1 );
 	}
 
-	return function(nextModel, isSync) {
+	return function(nextModel, isSync)
+	{
 		model = nextModel;
 
-		if (isSync) { 
-			draw(model);
-			state === 2 && (state = 1) 
+		if (isSync) {
+			draw(model)
+			state === 2 && (state = 1)
 		} else {
 			state === 0 && _Browser_requestAnimationFrame(updateIfNeeded)
-			state = 2;
+			state = 2
 		}
 	};
 }
@@ -4311,28 +4313,12 @@ function _Browser_load(url)
 		}
 	}));
 }
-var author$project$Main$Transition = function (a) {
+var author$project$EmployeeDashboard$Transition = function (a) {
 	return {$: 'Transition', a: a};
 };
-var author$project$Main$Loading = function (a) {
-	return {$: 'Loading', a: a};
+var author$project$EmployeeDashboard$Success = function (a) {
+	return {$: 'Success', a: a};
 };
-var damienklinnert$elm_spinner$Spinner$Model = function (a) {
-	return {$: 'Model', a: a};
-};
-var elm$core$Basics$apL = F2(
-	function (f, x) {
-		return f(x);
-	});
-var elm$core$Basics$identity = function (x) {
-	return x;
-};
-var elm$time$Time$Posix = function (a) {
-	return {$: 'Posix', a: a};
-};
-var elm$time$Time$millisToPosix = elm$time$Time$Posix;
-var damienklinnert$elm_spinner$Spinner$init = damienklinnert$elm_spinner$Spinner$Model(
-	elm$time$Time$millisToPosix(0));
 var elm$core$Basics$False = {$: 'False'};
 var elm$core$Basics$True = {$: 'True'};
 var elm$core$Result$isOk = function (result) {
@@ -4515,6 +4501,10 @@ var elm$core$Array$treeFromBuilder = F2(
 		}
 	});
 var elm$core$Basics$add = _Basics_add;
+var elm$core$Basics$apL = F2(
+	function (f, x) {
+		return f(x);
+	});
 var elm$core$Basics$floor = _Basics_floor;
 var elm$core$Basics$gt = _Utils_gt;
 var elm$core$Basics$max = F2(
@@ -4806,16 +4796,29 @@ var elm$json$Json$Decode$errorToStringHelp = F2(
 	});
 var elm$core$Platform$Cmd$batch = _Platform_batch;
 var elm$core$Platform$Cmd$none = elm$core$Platform$Cmd$batch(_List_Nil);
-var author$project$Main$init = function (_n0) {
+var author$project$EmployeeDashboard$init = function (_n0) {
 	return _Utils_Tuple2(
-		author$project$Main$Loading(
-			{spinner: damienklinnert$elm_spinner$Spinner$init}),
+		author$project$EmployeeDashboard$Success(
+			_List_fromArray(
+				['Mile tracker', 'Absent Form', 'Overtime Form'])),
 		elm$core$Platform$Cmd$none);
 };
-var author$project$Main$Failure = {$: 'Failure'};
-var author$project$Main$Success = function (a) {
-	return {$: 'Success', a: a};
+var author$project$EmployeeDashboard$Failure = {$: 'Failure'};
+var author$project$EmployeeDashboard$Loading = function (a) {
+	return {$: 'Loading', a: a};
 };
+var damienklinnert$elm_spinner$Spinner$Model = function (a) {
+	return {$: 'Model', a: a};
+};
+var elm$core$Basics$identity = function (x) {
+	return x;
+};
+var elm$time$Time$Posix = function (a) {
+	return {$: 'Posix', a: a};
+};
+var elm$time$Time$millisToPosix = elm$time$Time$Posix;
+var damienklinnert$elm_spinner$Spinner$init = damienklinnert$elm_spinner$Spinner$Model(
+	elm$time$Time$millisToPosix(0));
 var damienklinnert$elm_spinner$Spinner$update = F2(
 	function (msg, _n0) {
 		var time = _n0.a;
@@ -4826,17 +4829,17 @@ var damienklinnert$elm_spinner$Spinner$update = F2(
 			return damienklinnert$elm_spinner$Spinner$Model(newTime);
 		}
 	});
-var author$project$Main$update = F2(
+var author$project$EmployeeDashboard$update = F2(
 	function (msg, model) {
 		if (msg.$ === 'LoadApps') {
 			var result = msg.a;
 			if (result.$ === 'Ok') {
 				var appUrls = result.a;
 				return _Utils_Tuple2(
-					author$project$Main$Success(appUrls),
+					author$project$EmployeeDashboard$Success(appUrls),
 					elm$core$Platform$Cmd$none);
 			} else {
-				return _Utils_Tuple2(author$project$Main$Failure, elm$core$Platform$Cmd$none);
+				return _Utils_Tuple2(author$project$EmployeeDashboard$Failure, elm$core$Platform$Cmd$none);
 			}
 		} else {
 			var spinnerMsg = msg.a;
@@ -4850,7 +4853,7 @@ var author$project$Main$update = F2(
 			}();
 			var spinnerModel = A2(damienklinnert$elm_spinner$Spinner$update, spinnerMsg, mdl.spinner);
 			return _Utils_Tuple2(
-				author$project$Main$Loading(
+				author$project$EmployeeDashboard$Loading(
 					_Utils_update(
 						mdl,
 						{spinner: spinnerModel})),
@@ -5113,7 +5116,7 @@ var elm$html$Html$p = _VirtualDom_node('p');
 var elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var elm$html$Html$text = elm$virtual_dom$VirtualDom$text;
 var elm$html$Html$ul = _VirtualDom_node('ul');
-var author$project$Main$view = function (model) {
+var author$project$EmployeeDashboard$view = function (model) {
 	switch (model.$) {
 		case 'Success':
 			var appUrls = model.a;
@@ -5542,14 +5545,14 @@ var elm$browser$Browser$Events$onAnimationFrame = elm$browser$Browser$AnimationM
 var damienklinnert$elm_spinner$Spinner$subscription = elm$browser$Browser$Events$onAnimationFrame(damienklinnert$elm_spinner$Spinner$AnimationFrame);
 var elm$browser$Browser$element = _Browser_element;
 var elm$core$Platform$Sub$map = _Platform_map;
-var author$project$Main$main = elm$browser$Browser$element(
+var author$project$EmployeeDashboard$main = elm$browser$Browser$element(
 	{
-		init: author$project$Main$init,
+		init: author$project$EmployeeDashboard$init,
 		subscriptions: function (model) {
-			return A2(elm$core$Platform$Sub$map, author$project$Main$Transition, damienklinnert$elm_spinner$Spinner$subscription);
+			return A2(elm$core$Platform$Sub$map, author$project$EmployeeDashboard$Transition, damienklinnert$elm_spinner$Spinner$subscription);
 		},
-		update: author$project$Main$update,
-		view: author$project$Main$view
+		update: author$project$EmployeeDashboard$update,
+		view: author$project$EmployeeDashboard$view
 	});
-_Platform_export({'Main':{'init':author$project$Main$main(
+_Platform_export({'EmployeeDashboard':{'init':author$project$EmployeeDashboard$main(
 	elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
