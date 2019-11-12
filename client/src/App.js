@@ -24,7 +24,7 @@ function App() {
 
       <h2>Employee Dashboard</h2>
 
-      <Route path="/" render={(props) => <Elm src={EmployeeDashboard} />} />
+      {/* <Route path="/" render={(props) => <Elm src={EmployeeDashboard} />} /> */}
       <Route path="/register" component={Register} />
       <Route path="/login" component={Login} />
       <Route path="/forms/overtime" component={OvertimeForm} />
