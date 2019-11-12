@@ -9,7 +9,7 @@ import OvertimeForm from './components/forms/Overtime'
 import Register from './components/forms/Register'
 import Login from './components/forms/Login'
 import AllUsers from './components/AllUsers'
-import EmployeeDashboard from './components/dashboards/EmployeeDashboard'
+import { EmployeeDashboard } from './components/dashboards/EmployeeDashboard'
 
 function App() {
   return (
