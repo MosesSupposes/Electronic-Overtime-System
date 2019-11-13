@@ -111,7 +111,11 @@ viewTable (Table columns rows) =
 
         (cs, rs) -> 
             table []
-                [ tr [] <| List.map (viewTableHeader) (List.singleton <| List.singleton <| stringsToHtml <| columnsToStrings <| cs) ]
+                -- Columns
+                [ tr [] <| List.map (viewTableHeader) (List.singleton <| List.singleton <| stringsToHtml <| columnsToStrings <| cs) 
+                -- Rows
+                , tr [] <| List.map viewTableData  (rowsToStrings <| rs) 
+                ]
                 -- <| List.map2 (\ row col ->  col |> viewTableHeader ) (rowsToStrings rs) ([List.map (stringsToHtml << columnsToStrings) [cs]])
 
 rowsToStrings : Rows -> List String

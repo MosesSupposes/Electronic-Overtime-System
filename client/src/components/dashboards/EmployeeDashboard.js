@@ -4983,15 +4983,24 @@
 				},
 				xs));
 	};
-	var elm$html$Html$tr = _VirtualDom_node('tr');
-	var author$project$EmployeeDashboard$viewTableHeader = elm$html$Html$tr(_List_Nil);
-	var elm$core$Basics$composeL = F3(
-		function (g, f, x) {
-			return g(
-				f(x));
-		});
-	var elm$html$Html$table = _VirtualDom_node('table');
 	var elm$html$Html$td = _VirtualDom_node('td');
+	var author$project$EmployeeDashboard$viewTableData = function (tableData) {
+		return A2(
+			elm$html$Html$td,
+			_List_Nil,
+			_List_fromArray(
+				[
+					elm$html$Html$text(tableData)
+				]));
+	};
+	var elm$html$Html$th = _VirtualDom_node('th');
+	var author$project$EmployeeDashboard$viewTableHeader = elm$html$Html$th(_List_Nil);
+	var elm$core$List$singleton = function (value) {
+		return _List_fromArray(
+			[value]);
+	};
+	var elm$html$Html$table = _VirtualDom_node('table');
+	var elm$html$Html$tr = _VirtualDom_node('tr');
 	var author$project$EmployeeDashboard$viewTable = function (_n0) {
 		var columns = _n0.a;
 		var rows = _n0.b;
@@ -5043,25 +5052,29 @@
 		} else {
 			var cs = _n1.a;
 			var rs = _n1.b;
-			var _n4 = _Utils_Tuple0;
 			return A2(
 				elm$html$Html$table,
 				_List_Nil,
-				A3(
-					elm$core$List$map2,
-					F2(
-						function (row, col) {
-							return author$project$EmployeeDashboard$viewTableHeader(col);
-						}),
-					author$project$EmployeeDashboard$rowsToStrings(rs),
-					_List_fromArray(
-						[
-							A2(
+				_List_fromArray(
+					[
+						A2(
+						elm$html$Html$tr,
+						_List_Nil,
+						A2(
 							elm$core$List$map,
-							A2(elm$core$Basics$composeL, author$project$EmployeeDashboard$stringsToHtml, author$project$EmployeeDashboard$columnsToStrings),
-							_List_fromArray(
-								[cs]))
-						])));
+							author$project$EmployeeDashboard$viewTableHeader,
+							elm$core$List$singleton(
+								elm$core$List$singleton(
+									author$project$EmployeeDashboard$stringsToHtml(
+										author$project$EmployeeDashboard$columnsToStrings(cs)))))),
+						A2(
+						elm$html$Html$tr,
+						_List_Nil,
+						A2(
+							elm$core$List$map,
+							author$project$EmployeeDashboard$viewTableData,
+							author$project$EmployeeDashboard$rowsToStrings(rs)))
+					]));
 		}
 	};
 	var avh4$elm_color$Color$RgbaSpace = F4(
@@ -5650,6 +5663,11 @@
 	var elm$browser$Browser$AnimationManager$Delta = function (a) {
 		return {$: 'Delta', a: a};
 	};
+	var elm$core$Basics$composeL = F3(
+		function (g, f, x) {
+			return g(
+				f(x));
+		});
 	var elm$browser$Browser$AnimationManager$subMap = F2(
 		function (func, sub) {
 			if (sub.$ === 'Time') {
