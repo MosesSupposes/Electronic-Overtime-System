@@ -4995,6 +4995,11 @@
 	};
 	var elm$html$Html$th = _VirtualDom_node('th');
 	var author$project$EmployeeDashboard$viewTableHeader = elm$html$Html$th(_List_Nil);
+	var elm$core$Basics$composeL = F3(
+		function (g, f, x) {
+			return g(
+				f(x));
+		});
 	var elm$core$List$singleton = function (value) {
 		return _List_fromArray(
 			[value]);
@@ -5063,10 +5068,14 @@
 						A2(
 							elm$core$List$map,
 							author$project$EmployeeDashboard$viewTableHeader,
-							elm$core$List$singleton(
-								elm$core$List$singleton(
-									author$project$EmployeeDashboard$stringsToHtml(
-										author$project$EmployeeDashboard$columnsToStrings(cs)))))),
+							A3(
+								elm$core$Basics$composeL,
+								A2(
+									elm$core$Basics$composeL,
+									A2(elm$core$Basics$composeL, elm$core$List$singleton, elm$core$List$singleton),
+									author$project$EmployeeDashboard$stringsToHtml),
+								author$project$EmployeeDashboard$columnsToStrings,
+								cs))),
 						A2(
 						elm$html$Html$tr,
 						_List_Nil,
@@ -5663,11 +5672,6 @@
 	var elm$browser$Browser$AnimationManager$Delta = function (a) {
 		return {$: 'Delta', a: a};
 	};
-	var elm$core$Basics$composeL = F3(
-		function (g, f, x) {
-			return g(
-				f(x));
-		});
 	var elm$browser$Browser$AnimationManager$subMap = F2(
 		function (func, sub) {
 			if (sub.$ === 'Time') {

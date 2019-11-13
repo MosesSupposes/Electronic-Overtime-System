@@ -90,10 +90,10 @@ type Table
     = Table Columns Rows
 
 type alias Columns = List String
+
 type alias Rows = List (List String)
--- viewTable : { a | headers : List String, data: List String } -> Html msg
+
 viewTable : Table -> Html msg
--- viewTable { headers, data } =
 viewTable (Table columns rows) =
     case (columns, rows) of 
         ([], [[]]) -> 
@@ -112,9 +112,9 @@ viewTable (Table columns rows) =
         (cs, rs) -> 
             table []
                 -- Columns
-                [ tr [] <| List.map (viewTableHeader) (List.singleton <| List.singleton <| stringsToHtml <| columnsToStrings <| cs) 
+                [ tr [] <| List.map (viewTableHeader) (cs |> (List.singleton << List.singleton << stringsToHtml << columnsToStrings)) 
                 -- Rows
-                , tr [] <| List.map viewTableData  (rowsToStrings <| rs) 
+                , tr [] <| List.map viewTableData  (rs |> rowsToStrings) 
                 ]
                 -- <| List.map2 (\ row col ->  col |> viewTableHeader ) (rowsToStrings rs) ([List.map (stringsToHtml << columnsToStrings) [cs]])
 
