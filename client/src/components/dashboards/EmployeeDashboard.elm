@@ -131,7 +131,7 @@ rowsToStrings rss =
 
 columnsToStrings : Columns -> List String 
 columnsToStrings cs =
-    List.map Debug.toString cs
+    List.concat []
 
 stringsToHtml : List String -> Html msg
 stringsToHtml xs =
