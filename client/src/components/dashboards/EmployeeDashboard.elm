@@ -110,19 +110,7 @@ viewTable (Table columns rows) =
             [ tr [] <| List.map (\c -> td [] [text c])  cs ]
 
         (cs, rs) ->
-            let 
-                -- rowsPerColumn columnCount rowCount = 
-                --     if modBy columnCount rowCount == 0 then 
-                --         (rowCount, 0)
-                --     else 
-                --         (rowCount, modBy columnCount rowCount)
-                
-                -- (rpc, leftOvers) = rowsPerColumn (List.length hs) (List.length ds)
-                _ = ()
-            in 
-
             table []
-                -- <| List.map2 ( viewTableRow << List.singleton << viewTableData ) (rowsToStrings rs) (columnsToStrings cs)
                 <| List.map2 (\ row col ->  col |> viewTableHeader ) (rowsToStrings rs) ([List.map (stringsToHtml << columnsToStrings) [cs]])
 
 rowsToStrings : Rows -> List String
