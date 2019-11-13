@@ -63,19 +63,87 @@ view model =
         Success appUrls -> 
             case appUrls of
                     [] ->
-                        div [] [ p [] [ text "More apps comings soon."]]
+                        div [] 
+                            [ p [] [ text "More apps comings soon."] ]
 
                     urls -> 
-                        div [] [ 
-                                ul [] <| List.map (\url -> li [] [ text url]) urls 
-                        ]
+                        div [] 
+                            [ ul [] <| List.map (\url -> li [] [ text url]) urls ]   
 
         Loading m -> 
             -- div [] [ p [ text "Loading..."]]
-            div [] [ Spinner.view Spinner.defaultConfig m.spinner ]
+            div [] 
+                [ div [] [ Spinner.view Spinner.defaultConfig m.spinner ]
+                -- , viewTable { headers = empty, data = empty }
+                , viewTable (Table [""] [[""]])
+                ]
 
         Failure ->
             div [] [ p [] [ text "Failed to load apps. Please try reloading the page."]]
+
+
+empty : List a
+empty = []
+
+
+type Table 
+    = Table Columns Rows
+
+type alias Columns = List String
+type alias Rows = List (List String)
+-- viewTable : { a | headers : List String, data: List String } -> Html msg
+viewTable : Table -> Html msg
+-- viewTable { headers, data } =
+viewTable (Table columns rows) =
+    case (columns, rows) of 
+        ([], [[]]) -> 
+            table [] 
+            [ tr []
+                [ td [] [] 
+                , td [] [] 
+                , td [] []
+                , td [] []
+                ]
+            ]
+        (cs, [[]]) -> 
+            table [] 
+            [ tr [] <| List.map (\c -> td [] [text c])  cs ]
+
+        (cs, rs) ->
+            let 
+                -- rowsPerColumn columnCount rowCount = 
+                --     if modBy columnCount rowCount == 0 then 
+                --         (rowCount, 0)
+                --     else 
+                --         (rowCount, modBy columnCount rowCount)
+                
+                -- (rpc, leftOvers) = rowsPerColumn (List.length hs) (List.length ds)
+                _ = ()
+            in 
+
+            table []
+                -- <| List.map2 ( viewTableRow << List.singleton << viewTableData ) (rowsToStrings rs) (columnsToStrings cs)
+                <| List.map2 (\ row col ->  col |> viewTableHeader ) (rowsToStrings rs) ([List.map (stringsToHtml << columnsToStrings) [cs]])
+
+rowsToStrings : Rows -> List String
+rowsToStrings rss = 
+    List.concat []
+
+columnsToStrings : Columns -> List String 
+columnsToStrings cs =
+    List.map Debug.toString cs
+
+stringsToHtml : List String -> Html msg
+stringsToHtml xs =
+    div [] <| List.map (\x -> p [] [text x]) xs
+
+viewTableHeader : List (Html msg) -> Html msg
+viewTableHeader =
+    tr []
+
+viewTableData : String -> Html msg
+viewTableData tableData = 
+    td [] [ text tableData ]
 
 
 main = 
