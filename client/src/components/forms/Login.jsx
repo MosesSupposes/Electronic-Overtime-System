@@ -40,7 +40,6 @@ export default function Login(props) {
 	}
 	
 	const handleSubmitCb = loginCredentials => {
-        console.log('LOGIN CREDS:', loginCredentials)
         // remove potential pre-existing failure message 
         setLoginFail(false)
 

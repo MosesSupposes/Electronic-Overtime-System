@@ -49,7 +49,6 @@ export default function Register(props) {
         ) {
             axios.post('https://electronic-overtime-system.herokuapp.com/api/auth/register', { username, password, email })
                 .then(res => { 
-                    console.log(res)
                     // TODO: save username and role to global state via react-conflux 
                     setRegistrationSuccess(true)
                     setTimeout(() => { props.history.push('/') }, 1500)
