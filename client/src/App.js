@@ -19,8 +19,6 @@ function App() {
           <Link to="/forms/overtime">Overtime Form</Link>
           <Link to="/forms/absent">Absent Form</Link>
           <Link to="/register">Register/Login</Link>
-          {/* TODO: Delete this link from the home page. This resource should only be accessible by site admins.  */}
-          <Link to="/all-users">All Users </Link>
         </nav>
       </header>
 
