@@ -109,9 +109,10 @@ viewTable (Table columns rows) =
             table [] 
             [ tr [] <| List.map (\c -> td [] [text c])  cs ]
 
-        (cs, rs) ->
+        (cs, rs) -> 
             table []
-                <| List.map2 (\ row col ->  col |> viewTableHeader ) (rowsToStrings rs) ([List.map (stringsToHtml << columnsToStrings) [cs]])
+                [ tr [] <| List.map (viewTableHeader) (List.singleton <| List.singleton <| stringsToHtml <| columnsToStrings <| cs) ]
+                -- <| List.map2 (\ row col ->  col |> viewTableHeader ) (rowsToStrings rs) ([List.map (stringsToHtml << columnsToStrings) [cs]])
 
 rowsToStrings : Rows -> List String
 rowsToStrings rss = 
@@ -127,7 +128,7 @@ stringsToHtml xs =
 
 viewTableHeader : List (Html msg) -> Html msg
 viewTableHeader =
-    tr []
+    th []
 
 viewTableData : String -> Html msg
 viewTableData tableData = 
