@@ -1,4 +1,4 @@
-module EmployeeDashboard exposing(..)
+module Components.Dashboards.EmployeeDashboard exposing(..)
 
 
 import Browser
