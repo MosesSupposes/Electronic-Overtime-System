@@ -9,6 +9,24 @@ import Http
 import Json.Decode exposing (Decoder, field, string)
 import Spinner
 
+
+
+-- MAIN
+
+
+main = 
+    Browser.element 
+    { init = init
+    , view = view
+    , update = update
+    , subscriptions = subscriptions
+    }
+
+
+
+-- MODEL
+
+
 type Model = 
     Loading { spinner: Spinner.Model } 
     | Success Apps
@@ -26,6 +44,11 @@ init _ =
 type Msg
     = FetchApps Spinner.Msg 
     | GotApps (Result Http.Error Apps)
+
+
+
+
+-- UPDATE
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -53,6 +76,12 @@ update msg model =
 
                 Err _ ->
                     (Failure, Cmd.none)
+
+
+
+
+-- VIEW --
+
 
 view : Model -> Html Msg
 view model =
@@ -138,6 +167,10 @@ viewTableData tableData =
 
 
 
+
+-- SUBSCRIPTIONS 
+
+
 subscriptions : Model -> Sub Msg
 subscriptions model =
     case model of 
@@ -147,11 +180,3 @@ subscriptions model =
         _ -> 
             Sub.none
 
-
-main = 
-    Browser.element 
-    { init = init
-    , view = view
-    , update = update
-    , subscriptions = subscriptions
-    }
