@@ -3,13 +3,11 @@ import { Route, Link } from 'react-router-dom'
 
 import './App.css'
 
-import Elm from 'react-elm-components'
-
-import OvertimeForm from './components/forms/Overtime'
-import Register from './components/forms/Register'
-import Login from './components/forms/Login'
-import AllUsers from './components/AllUsers'
-// import { EmployeeDashboard } from './components/dashboards/EmployeeDashboard'
+import OvertimeForm from './Components/Forms/Overtime'
+import Register from './Components/Forms/Register'
+import Login from './Components/Forms/Login'
+import AllUsers from './Components/AllUsers'
+import EmployeeDashboard from './Components/Dashboards/EmployeeDashboard.jsx'
 
 function App() {
   return (
@@ -22,11 +20,7 @@ function App() {
         </nav>
       </header>
 
-      <h2>Employee Dashboard</h2>
-
-      <Route path="/" component={function EmployeeDashboard() { // Elm component will be embedded here. Check index.html to see it.
-        return <div id="employeeDashboard"></div>
-      }} />
+      <Route path="/" component={EmployeeDashboard} />
       <Route path="/register" component={Register} />
       <Route path="/login" component={Login} />
       <Route path="/forms/overtime" component={OvertimeForm} />
