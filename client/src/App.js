@@ -20,7 +20,7 @@ function App() {
         </nav>
       </header>
 
-      <Route path="/" component={EmployeeDashboard} />
+      <Route exact path="/" component={EmployeeDashboard} />
       <Route path="/register" component={Register} />
       <Route path="/login" component={Login} />
       <Route path="/forms/overtime" component={OvertimeForm} />
