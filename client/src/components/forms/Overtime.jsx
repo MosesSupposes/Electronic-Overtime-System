@@ -5,8 +5,8 @@ import * as R from 'ramda'
 
 
 import Signature from '../Signature'
-import useForm from '../../hooks/useForm'
-import filterObj from '../../utils/filterObj'
+import useForm from '../../Hooks/useForm'
+import filterObj from '../../Utils/filterObj'
 
  /**
   * Styles

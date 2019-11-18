@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Form, Button, Message } from 'semantic-ui-react'
 import axios from 'axios'
 
-import useForm from '../../hooks/useForm'
+import useForm from '../../Hooks/useForm'
 import { Container, Underlined, P } from './Login'
 
 export default function Register(props) {
