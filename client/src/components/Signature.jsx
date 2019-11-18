@@ -4,7 +4,7 @@ import SignatureCanvas from 'react-signature-canvas'
 import { Button } from 'semantic-ui-react'
 
 
-export default React.forwardRef((props, ref) => {
+export default React.forwardRef( function Signature(props, ref) {
     const SigContainer = styled.div`    
         .sigCanvas {
             display: block;
