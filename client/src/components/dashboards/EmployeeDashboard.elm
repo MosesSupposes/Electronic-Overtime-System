@@ -1,4 +1,4 @@
-module Components.Dashboards.EmployeeDashboard exposing(..)
+port module Components.Dashboards.EmployeeDashboard exposing (main)
 
 
 import Browser
@@ -20,42 +20,39 @@ init : () -> (Model, Cmd Msg)
 init _ =
     -- (Loading { spinner = Spinner.init }, Cmd.none)
     (Success ["Mile tracker", "Absent Form", "Overtime Form"], Cmd.none)
+    -- (Failure, Cmd.none)
 
 
 type Msg
-    = Transition Spinner.Msg 
-    | LoadApps (Result Http.Error Apps)
+    = FetchApps Spinner.Msg 
+    | GotApps (Result Http.Error Apps)
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
-        -- Transition ->
-        --   (Loading, Cmd.none) -- TODO: load some data from the server
-
-        LoadApps result ->
-            case result of
-                Ok appUrls ->
-                    (Success appUrls, Cmd.none)
-
-                Err _ ->
-                    (Failure, Cmd.none)
-        
-        Transition spinnerMsg ->
+        FetchApps spinnerMsg ->
             let
                 spinnerModel =
                         Spinner.update spinnerMsg mdl.spinner
 
                 mdl = 
                     case model of 
-                        Loading m -> m
+                        Loading spinner -> spinner
 
                         _ -> { spinner = Spinner.init }
-
-
             in
-                (Loading { mdl | spinner = spinnerModel }, Cmd.none)
+                -- (Loading { mdl | spinner = spinnerModel }, Cmd.none)
+                (Loading { spinner = spinnerModel }, Cmd.none)
+    
 
+        GotApps result ->
+            case result of
+                Ok appUrls ->
+                    (Success appUrls, Cmd.none)
+
+                Err _ ->
+                    (Failure, Cmd.none)
 
 view : Model -> Html Msg
 view model =
@@ -69,6 +66,7 @@ view model =
                     urls -> 
                         div [] 
                             [ ul [] <| List.map (\url -> li [] [ text url]) urls ]   
+
 
         Loading m -> 
             -- div [] [ p [ text "Loading..."]]
@@ -139,10 +137,21 @@ viewTableData tableData =
     td [] [ text tableData ]
 
 
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    case model of 
+        Loading s -> 
+            Sub.map FetchApps Spinner.subscription
+
+        _ -> 
+            Sub.none
+
+
 main = 
     Browser.element 
     { init = init
     , view = view
     , update = update
-    , subscriptions = (\model -> Sub.map Transition Spinner.subscription)
+    , subscriptions = subscriptions
     }
