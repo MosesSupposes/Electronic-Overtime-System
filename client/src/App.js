@@ -7,7 +7,7 @@ import OvertimeForm from './Components/Forms/Overtime.jsx'
 import Register from './Components/Forms/Register.jsx'
 import Login from './Components/Forms/Login.jsx'
 import AllUsers from './Components/AllUsers.jsx'
-import EmployeeDashboard from './Components/Dashboards/EmployeeDashboard.jsx'
+// import EmployeeDashboard from './Components/Dashboards/EmployeeDashboard.jsx'
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
         </nav>
       </header>
 
-      <Route exact path="/" component={EmployeeDashboard} />
+      {/* <Route exact path="/" component={EmployeeDashboard} /> */}
       <Route path="/register" component={Register} />
       <Route path="/login" component={Login} />
       <Route path="/forms/overtime" component={OvertimeForm} />
