@@ -6,7 +6,7 @@
 - Make email field notNullable in knex schema
 - Fix error that's prohibitting session-creation when users register or log in.
 It works on the development server, but not on the production server.
-
+- Run latest migration on production database (There were issues installing knex on heroku). 
 <hr>
 
 Deployed backend URL: https://electronic-overtime-system.herokuapp.com/
