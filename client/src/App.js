@@ -3,10 +3,10 @@ import { Route, Link } from 'react-router-dom'
 
 import './App.css'
 
-import OvertimeForm from './Components/Forms/Overtime.jsx'
-import Register from './Components/Forms/Register.jsx'
-import Login from './Components/Forms/Login.jsx'
-import AllUsers from './Components/AllUsers.jsx'
+import OvertimeForm from './Components/Forms/Overtime'
+import Register from './Components/Forms/Register'
+import Login from './Components/Forms/Login'
+// import AllUsers from './Components/AllUsers'
 // import EmployeeDashboard from './Components/Dashboards/EmployeeDashboard.jsx'
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
       <Route path="/register" component={Register} />
       <Route path="/login" component={Login} />
       <Route path="/forms/overtime" component={OvertimeForm} />
-      <Route path="/all-users" component={AllUsers} />
+      {/* <Route path="/all-users" component={AllUsers} /> */}
       {/* <Route path="/forms/absent" component={AbsentForm} /> */}
     </div>
   )
