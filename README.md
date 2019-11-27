@@ -14,3 +14,7 @@ Deployed backend URL: https://electronic-overtime-system.herokuapp.com/
 _Note to self_: Here's the command to run a migration on heroku: 
 
 `heroku run knex --knexfile=./api/knexfile.js migrate:latest -a electronic-overtime-system`
+
+In case you run into this error: `bash: knex not found`, run this command:
+
+`heroku run "npm init -y && npm i knex pg --save && knex --knexfile=./api/knexfile.js migrate:latest" -a electronic-overtime-system`
