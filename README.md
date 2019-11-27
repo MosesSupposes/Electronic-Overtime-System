@@ -2,11 +2,10 @@
 **A tool for keeping track of employees' overtime hours**
 
 ## TODO:
-- Delete dummy accounts on production database
-- Make email field notNullable in knex schema
 - Fix error that's prohibitting session-creation when users register or log in.
 It works on the development server, but not on the production server.
-- Run latest migration on production database (There were issues installing knex on heroku). 
+_UPDATE_: The auth endpoints now work on the production server when accessed via Postman, but not on
+a regular web browser. More specifically on what's actually hapenning: it creates and saves the session, but it doesn't store the token on the session.
 <hr>
 
 Deployed backend URL: https://electronic-overtime-system.herokuapp.com/
